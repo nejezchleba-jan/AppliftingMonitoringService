@@ -10,7 +10,7 @@
 4. Service should be now available at ```localhost:8080``` through created container. (Container might restart once so the database initiliazes.)
 
 ## How to use the service
-All service endpoints except one require access token in ```Authorization``` header of the request which enables them to manage and see endpoints and monitoring results.
+All service endpoints except one require access token in ```Authorization``` header of the request which enables them to manage and see endpoints and monitoring results. All monitored endpoints are persisted and their monitoring is relaunched if the server is restarted.
 ### Users
 - ```GET``` ```/users/all```  -> You can use this ```Unauthorized``` endpoint to see all seeded users and copy their accessTokens.
 ### Endpoints
