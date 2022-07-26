@@ -25,6 +25,7 @@ All service endpoints except one require access token in ```Authorization``` hea
 ```
 
 - ```GET``` ```/endpoints/all```  -> Shows all monitored endpoints for current authorized user.
+- ```GET``` ```/endpoints/{id}```  -> Shows monitored endpoint with given {id} for current authorized user.
 - ```DELETE``` ```/endpoints/{id}```  -> Deletes the endpoint with given {id} and all its results. Only works on the endpoints of the authorized user.
 
 - ```PUT``` ```/endpoints/rename/{id}```  -> Renames endpoint with given {id}:
