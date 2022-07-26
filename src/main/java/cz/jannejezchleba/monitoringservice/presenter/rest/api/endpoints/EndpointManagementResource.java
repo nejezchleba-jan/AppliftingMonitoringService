@@ -29,6 +29,10 @@ public interface EndpointManagementResource {
     @PreAuthorize("hasRole('USER')")
     CompletableFuture<List<MonitoredEndpointResponse>> getAllForUser(@CurrentUser UserPrincipal userPrincipal);
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    CompletableFuture<MonitoredEndpointResponse> getEndpoint(@PathVariable(name = "id") int id, @CurrentUser UserPrincipal userPrincipal);
+
     @PutMapping("/rename/{id}")
     @PreAuthorize("hasRole('USER')")
     CompletableFuture<ApiResponse> renameEndpoint(@PathVariable(name = "id") int id,

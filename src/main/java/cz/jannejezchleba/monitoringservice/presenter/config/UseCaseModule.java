@@ -57,6 +57,11 @@ public class UseCaseModule {
         return new GetAllEndpointsUseCase(repository);
     }
 
+    @Bean
+    public GetEndpointUseCase getEndpointUseCase(MonitoredEndpointRepository repository) {
+        return new GetEndpointUseCase(repository);
+    }
+
     // Monitoring results
 
     @Bean

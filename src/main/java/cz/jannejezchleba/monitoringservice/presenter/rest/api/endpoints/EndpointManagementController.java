@@ -18,6 +18,7 @@ public class EndpointManagementController implements EndpointManagementResource 
 
     private final UseCaseExecutor useCaseExecutor;
     private final CreateEndpointUseCase createEndpointUseCase;
+    private final GetEndpointUseCase getEndpointUseCase;
     private final GetAllEndpointsForUserUseCase getAllEndpointsForUserUseCase;
     private final DeleteEndpointUseCase deleteEndpointUseCase;
     private final RenameEndpointUseCase renameEndpointUseCase;
@@ -25,12 +26,14 @@ public class EndpointManagementController implements EndpointManagementResource 
 
     public EndpointManagementController(@Qualifier("useCaseExecutorImpl") UseCaseExecutor useCaseExecutor,
                                         CreateEndpointUseCase createEndpointUseCase,
+                                        GetEndpointUseCase getEndpointUseCase,
                                         GetAllEndpointsForUserUseCase getAllEndpointsForUserUseCase,
                                         DeleteEndpointUseCase deleteEndpointUseCase,
                                         RenameEndpointUseCase renameEndpointUseCase,
                                         ChangeIntervalEndpointUseCase changeIntervalEndpointUseCase) {
         this.useCaseExecutor = useCaseExecutor;
         this.createEndpointUseCase = createEndpointUseCase;
+        this.getEndpointUseCase = getEndpointUseCase;
         this.getAllEndpointsForUserUseCase = getAllEndpointsForUserUseCase;
         this.deleteEndpointUseCase = deleteEndpointUseCase;
         this.renameEndpointUseCase = renameEndpointUseCase;
@@ -56,6 +59,15 @@ public class EndpointManagementController implements EndpointManagementResource 
                 new GetAllEndpointsForUserUseCase.InputValues(userPrincipal.getId()),
                 (outputValues) -> MonitoredEndpointResponse.from(outputValues.getEndpointList()));
     }
+
+    @Override
+    public CompletableFuture<MonitoredEndpointResponse> getEndpoint(int id, UserPrincipal userPrincipal) {
+        return useCaseExecutor.execute(
+                getEndpointUseCase,
+                new GetEndpointUseCase.InputValues(id, userPrincipal.getId()),
+                (outputValues) -> MonitoredEndpointResponse.from(outputValues.getEndpoint()));
+    }
+
 
     @Override
     public CompletableFuture<ApiResponse> renameEndpoint(int id, RenameRequest request, UserPrincipal userPrincipal) {
