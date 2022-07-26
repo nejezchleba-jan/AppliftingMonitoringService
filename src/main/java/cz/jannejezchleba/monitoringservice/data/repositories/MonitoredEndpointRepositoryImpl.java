@@ -50,4 +50,9 @@ public class MonitoredEndpointRepositoryImpl implements MonitoredEndpointReposit
     public Optional<MonitoredEndpoint> getById(int id) {
         return repository.findById(id).map(MonitoredEndpointData::toDomain);
     }
+
+    @Override
+    public boolean existsByNameAndOwnerId(String name, int userId) {
+        return repository.existsByNameAndOwnerId(name, userId);
+    }
 }

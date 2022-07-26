@@ -15,4 +15,6 @@ public interface MonitoredEndpointRepository {
     List<MonitoredEndpoint> getAllForUser(int id);
 
     Optional<MonitoredEndpoint> getById(int id);
+
+    boolean existsByNameAndOwnerId(String name, int userId);
 }

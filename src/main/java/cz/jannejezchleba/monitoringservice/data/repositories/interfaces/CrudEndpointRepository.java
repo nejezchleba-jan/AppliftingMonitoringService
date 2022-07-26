@@ -12,4 +12,6 @@ public interface CrudEndpointRepository extends CrudRepository<MonitoredEndpoint
     List<MonitoredEndpointData> findAll();
 
     Optional<MonitoredEndpointData> findById(int id);
+
+    boolean existsByNameAndOwnerId(String name, int ownerId);
 }

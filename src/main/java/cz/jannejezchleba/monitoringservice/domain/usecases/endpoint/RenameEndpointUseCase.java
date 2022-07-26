@@ -1,6 +1,7 @@
 package cz.jannejezchleba.monitoringservice.domain.usecases.endpoint;
 
 import cz.jannejezchleba.monitoringservice.domain.entities.endpoint.MonitoredEndpoint;
+import cz.jannejezchleba.monitoringservice.domain.exceptions.AlreadyExistsException;
 import cz.jannejezchleba.monitoringservice.domain.exceptions.NotFoundException;
 import cz.jannejezchleba.monitoringservice.domain.usecases.UseCase;
 import lombok.Value;
@@ -22,6 +23,10 @@ public class RenameEndpointUseCase extends UseCase<RenameEndpointUseCase.InputVa
         Optional<MonitoredEndpoint> endpointToChange = repository.getById(id);
         if (endpointToChange.isEmpty() || endpointToChange.get().getOwner().getId() != input.userId) {
             throw new NotFoundException("Endpoint %s not found", id);
+        }
+
+        if (repository.existsByNameAndOwnerId(input.name, input.userId)) {
+            throw new AlreadyExistsException("Endpoint with name %s already exists.", input.name);
         }
 
         MonitoredEndpoint changedEndpoint = endpointToChange.get().rename(input.name);
